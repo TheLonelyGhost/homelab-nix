@@ -70,33 +70,31 @@ in
       };
 
       services.consul = {
-        extraConfig = {
-          services = [
-            {
-              id = "fabio";
-              name = "Fabio";
-              inherit (cfg) port;
-              meta = {
-                inherit (fabio.meta) homepage description;
-                inherit (fabio) version;
-              };
-              checks = [
-                {
-                  id = "tcp";
-                  name = "TCP on port ${cfg.uiPort}";
-                  tcp = "localhost:${cfg.uiPort}";
-                  interval = "10s";
-                  timeout = "1s";
-                }
-              ];
-              tags = [
-                # Fabio tags:
-                # "urlprefix-/get"
-                # "strip=/get"
-              ];
-            }
-          ];
-        };
+        extraConfigFiles = builtins.toFile "fabio.json" (builtins.toJSON {
+          service = {
+            id = "fabio";
+            name = "Fabio";
+            inherit (cfg) port;
+            meta = {
+              inherit (fabio.meta) homepage description;
+              inherit (fabio) version;
+            };
+            checks = [
+              {
+                id = "tcp";
+                name = "TCP on port ${cfg.uiPort}";
+                tcp = "localhost:${cfg.uiPort}";
+                interval = "10s";
+                timeout = "1s";
+              }
+            ];
+            tags = [
+              # Fabio tags:
+              # "urlprefix-/get"
+              # "strip=/get"
+            ];
+          };
+        });
       };
 
       systemd.services.fabio = {
