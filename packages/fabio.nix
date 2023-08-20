@@ -23,6 +23,10 @@ pkgs.buildGoModule {
   vendorHash = null;
   # vendorSha256 = fakeSha256;
 
+  subPackages = [ "." ];
+
+  doCheck = false;
+
   meta = {
     mainProgram = "fabio";
     homepage = "https://fabiolb.net/";
