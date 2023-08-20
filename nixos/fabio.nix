@@ -45,6 +45,8 @@ in
 
     security.wrappers.fabio = {
       source = lib.getExe fabio;
+      owner = "root";
+      group = "root";
       capabilities = "cap_net_bind_service+ep";
     };
 
