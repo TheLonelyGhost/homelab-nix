@@ -75,7 +75,7 @@ in
             {
               id = "fabio";
               name = "Fabio";
-              port = cfg.port;
+              inherit (cfg) port;
               meta = {
                 inherit (fabio.meta) homepage description;
                 inherit (fabio) version;
@@ -124,7 +124,7 @@ in
           User = "fabio";
           Group = "fabio";
 
-          ExecStart = "${fabio}/bin/fabio -proxy.addr :${cfg.port} -ui.addr :${cfg.uiPort}";
+          ExecStart = "${fabio}/bin/fabio -proxy.addr :${builtins.toString cfg.port} -ui.addr :${builtins.toString cfg.uiPort}";
 
           # Fabio does not mess with `/dev/*`
           PrivateDevices = "yes";
@@ -146,7 +146,7 @@ in
       };
     }
 
-    (lib.mkIf (cfg.openFirewall) {
+    (lib.mkIf cfg.openFirewall {
       networking.firewall.allowedTCPPorts = [
         cfg.port
         cfg.uiPort
