@@ -69,35 +69,35 @@ in
         capabilities = "cap_net_bind_service+ep";
       };
 
-      services.consul = {
-        extraConfigFiles = [
-          (builtins.toFile "fabio.json" (builtins.toJSON {
-            service = {
-              id = "fabio";
-              name = "Fabio";
-              inherit (cfg) port;
-              meta = {
-                inherit (fabio.meta) homepage description;
-                inherit (fabio) version;
-              };
-              checks = [
-                {
-                  id = "tcp";
-                  name = "TCP on port ${builtins.toString cfg.uiPort}";
-                  tcp = "localhost:${builtins.toString cfg.uiPort}";
-                  interval = "10s";
-                  timeout = "1s";
-                }
-              ];
-              tags = [
-                # Fabio tags:
-                # "urlprefix-/get"
-                # "strip=/get"
-              ];
-            };
-          }))
-        ];
-      };
+      # services.consul = {
+      #   extraConfigFiles = [
+      #     (builtins.toFile "fabio.json" (builtins.toJSON {
+      #       service = {
+      #         id = "fabio";
+      #         name = "Fabio";
+      #         inherit (cfg) port;
+      #         meta = {
+      #           inherit (fabio.meta) homepage description;
+      #           inherit (fabio) version;
+      #         };
+      #         checks = [
+      #           {
+      #             id = "tcp";
+      #             name = "TCP on port ${builtins.toString cfg.uiPort}";
+      #             tcp = "localhost:${builtins.toString cfg.uiPort}";
+      #             interval = "10s";
+      #             timeout = "1s";
+      #           }
+      #         ];
+      #         tags = [
+      #           # Fabio tags:
+      #           # "urlprefix-/get"
+      #           # "strip=/get"
+      #         ];
+      #       };
+      #     }))
+      #   ];
+      # };
 
       systemd.services.fabio = {
         inherit (fabio.meta) description;
