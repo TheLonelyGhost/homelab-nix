@@ -70,12 +70,12 @@ in
 
       serviceConfig = {
         Restart = "always";
-        LimMEMLOCK = "infinity";
-        LimNOFILE = 65535;
+        LimitMEMLOCK = "infinity";
+        LimitNOFILE = 65535;
         User = "fabio";
         Group = "fabio";
 
-        Exec = "${fabio}/bin/fabio";
+        ExecStart = "${fabio}/bin/fabio";
 
         # Fabio does not mess with `/dev/*`
         PrivateDevices = "yes";
