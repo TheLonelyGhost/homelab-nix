@@ -50,7 +50,7 @@ in
 
     systemd.services.fabio = {
       inherit (fabio.meta) description;
-      documentation = fabio.meta.homepage;
+      documentation = [fabio.meta.homepage];
       after = [
         "network.target"
         "syslog.target"
