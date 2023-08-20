@@ -1,0 +1,97 @@
+{ config, lib, pkgs }:
+
+let
+  cfg = config.services.fabio;
+
+  fabio = import ../packages/fabio.nix {
+    inherit pkgs;
+  };
+
+  # TODO: Take `cfg.config` and serialize as a properties file
+  # fabioConfigFile = "";
+in
+{
+  imports = [ ];
+
+  options = {
+    services.fabio = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = ''
+        '';
+      };
+      package = lib.mkOption {
+        type = lib.types.package;
+        default = fabio;
+        description = ''
+        '';
+      };
+      # config = lib.mkOption {
+      #   type = lib.types.attrset;
+      #   default = { };
+      #   description = ''
+      #   '';
+      # };
+    };
+  };
+  config = lib.mkIf cfg.enable (lib.mkMerge [{
+    users.users.fabio = {
+      description = fabio.meta.description;
+      group = "fabio";
+      isSystemUser = true;
+    };
+    users.groups.fabio = {};
+
+    security.wrappers.fabio = {
+      source = lib.getExe fabio;
+      capabilities = "cap_net_bind_service+ep";
+    };
+
+    systemd.services.fabio = {
+      description = fabio.meta.description;
+      documentation = fabio.meta.homepage;
+      after = [
+        "network.target"
+        "syslog.target"
+      ];
+      wantedBy = ["multi-user.target"];
+
+      partOf = lib.optional config.services.consul.enable ["consul.service"];
+
+      # reloadTriggers = [
+      #   cfg.config
+      # ];
+
+      # script = "${fabio}/bin/fabio";
+      # scriptArgs = lib.optionals (fabioConfig != {}) "-cfg ${fabioConfigFile}";
+
+      serviceConfig = {
+        Restart = "always";
+        LimMEMLOCK = "infinity";
+        LimNOFILE = 65535;
+        User = "fabio";
+        Group = "fabio";
+
+        Exec = "${fabio}/bin/fabio";
+
+        # Fabio does not mess with `/dev/*`
+        PrivateDevices = "yes";
+        # Dedicated `/tmp`
+        PrivateTmp = "yes";
+        # Make `/usr`, `/boot`, and `/etc` read-only
+        ProtectSystem = "full";
+        # `/home` is not accessible at all
+        ProtectHome = "yes";
+        NoNewPrivileges = "yes";
+
+        # Allow binding to port < 1024
+        AmbientCapabilities = "CAP_NET_BIND_SERVICE";
+
+        # only ipv4, ipv6, unix socket, and netlink networking
+        # netlink is necessary so that fabio can list available IPs on startup
+        RestrictAddressFamilies = "AF_INET AF_INET6 AF_UNIX AF_NETLINK";
+      };
+    };
+  }]);
+}
