@@ -57,7 +57,7 @@ in
       ];
       wantedBy = ["multi-user.target"];
 
-      partOf = lib.optional config.services.consul.enable ["consul.service"];
+      partOf = lib.optional config.services.consul.enable "consul.service";
 
       # reloadTriggers = [
       #   cfg.config
