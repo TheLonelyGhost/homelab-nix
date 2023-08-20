@@ -82,8 +82,8 @@ in
             checks = [
               {
                 id = "tcp";
-                name = "TCP on port ${cfg.uiPort}";
-                tcp = "localhost:${cfg.uiPort}";
+                name = "TCP on port ${builtins.toString cfg.uiPort}";
+                tcp = "localhost:${builtins.toString cfg.uiPort}";
                 interval = "10s";
                 timeout = "1s";
               }
