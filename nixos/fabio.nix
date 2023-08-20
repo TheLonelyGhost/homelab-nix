@@ -37,7 +37,7 @@ in
   };
   config = lib.mkIf cfg.enable (lib.mkMerge [{
     users.users.fabio = {
-      description = fabio.meta.description;
+      inherit (fabio.meta) description;
       group = "fabio";
       isSystemUser = true;
     };
@@ -49,7 +49,7 @@ in
     };
 
     systemd.services.fabio = {
-      description = fabio.meta.description;
+      inherit (fabio.meta) description;
       documentation = fabio.meta.homepage;
       after = [
         "network.target"
