@@ -41,7 +41,9 @@
           };
         }
       ) // {
-      nixosModules.default = import ./nixos/fabio.nix;
+      nixosModules.default = import ./nixos/default.nix;
+      nixosModules.seedbox = import ./nixos/seedbox;
       nixosModules.fabio = import ./nixos/fabio.nix;
+      nixosModules.flood = import ./nixos/flood.nix;
     };
 }
