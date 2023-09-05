@@ -8,7 +8,7 @@ in {
     seedbox = {
       radarr = {
         enable = lib.mkOption {
-          type = types.bool;
+          type = lib.types.bool;
           default = true;
           description = lib.mdDoc ''
             Media content searcher for cinema.
@@ -16,7 +16,7 @@ in {
         };
 
         openFirewall = lib.mkOption {
-          type = types.bool;
+          type = lib.types.bool;
           default = true;
           description = lib.mdDoc ''
             Open the firewall to all ports used by Radarr.

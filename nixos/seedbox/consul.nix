@@ -10,7 +10,7 @@ in {
     seedbox = {
       consul = {
         enable = lib.mkOption {
-          type = types.bool;
+          type = lib.types.bool;
           default = true;
           description = lib.mdDoc ''
             Healthchecks and service discovery using HashiCorp Consul
@@ -18,7 +18,7 @@ in {
         };
 
         openFirewall = lib.mkOption {
-          type = types.bool;
+          type = lib.types.bool;
           default = true;
           description = lib.mdDoc ''
             Open the firewall to all ports used by Consul.
@@ -33,7 +33,7 @@ in {
         '');
 
         services = lib.mkOption {
-          type = types.listOf (types.attrsOf types.anything);
+          type = lib.types.listOf (lib.types.attrsOf lib.types.anything);
           default = [];
           description = lib.mdDoc ''
             Defines what services aboard machine need to be advertised and monitored.

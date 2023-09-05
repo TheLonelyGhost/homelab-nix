@@ -8,7 +8,7 @@ in {
     seedbox = {
       bazarr = {
         enable = lib.mkOption {
-          type = types.bool;
+          type = lib.types.bool;
           default = true;
           description = lib.mdDoc ''
             Subtitle searcher for media.
@@ -16,7 +16,7 @@ in {
         };
 
         openFirewall = lib.mkOption {
-          type = types.bool;
+          type = lib.types.bool;
           default = true;
           description = lib.mdDoc ''
             Open the firewall to all ports used by Bazarr.

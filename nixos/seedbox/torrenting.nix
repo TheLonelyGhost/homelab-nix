@@ -13,7 +13,7 @@ in {
     seedbox = {
       torrent = {
         enable = lib.mkOption {
-          type = types.bool;
+          type = lib.types.bool;
           default = false;
           description = lib.mdDoc ''
             Client for downloading torrents.
@@ -21,7 +21,7 @@ in {
         };
 
         openFirewall = lib.mkOption {
-          type = types.bool;
+          type = lib.types.bool;
           default = true;
           description = lib.mdDoc ''
             Open the firewall to all ports used by the torrent client.
@@ -29,7 +29,7 @@ in {
         };
 
         client = lib.mkOption {
-          type = types.enum [
+          type = lib.types.enum [
             "aria2"
             "rtorrent"
             # "transmission"
@@ -42,7 +42,7 @@ in {
         };
 
         downloadDir = lib.mkOption {
-          type = types.str;
+          type = lib.types.str;
           default = "";
           description = lib.mdDoc ''
             Directory where files are downloaded by default.
@@ -50,7 +50,7 @@ in {
         };
 
         webPort = lib.mkOption {
-          type = types.port;
+          type = lib.types.port;
           default = 6800;
           description = lib.mdDoc ''
             HTTP port of the Web UI for the torrenting client.
@@ -58,7 +58,7 @@ in {
         };
 
         rpcPort = lib.mkOption {
-          type = types.port;
+          type = lib.types.port;
           default = 50000;
           description = lib.mdDoc ''
             Port used for RPC communication (rtorrent-only).
@@ -69,14 +69,14 @@ in {
         };
 
         listenPort = lib.mkOption {
-          type = types.port;
+          type = lib.types.port;
           default = 12345;
           description = lib.mdDoc ''
             Port reported to tracker upon which the client is listening.
           '';
         };
         listenPortDHT = lib.mkOption {
-          type = types.port;
+          type = lib.types.port;
           default = 62890;
           description = lib.mdDoc ''
             Port reported in Distributed Hash Table (DHT) upon which the client is listening.

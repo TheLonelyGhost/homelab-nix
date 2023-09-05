@@ -10,7 +10,7 @@ in
         enable = lib.mkEnableOption (lib.mdDoc "Flood web service");
 
         package = lib.mkOption {
-          type = types.package;
+          type = lib.types.package;
           default = pkgs.flood;
           example = literalExpression "pkgs.flood";
           description = lib.mdDoc ''
@@ -19,7 +19,7 @@ in
         };
 
         user = lib.mkOption {
-          type = types.str;
+          type = lib.types.str;
           default = "flood";
           description = lib.mdDoc ''
             User account under which Flood runs.
@@ -27,7 +27,7 @@ in
         };
 
         group = lib.mkOption {
-          type = types.str;
+          type = lib.types.str;
           default = "flood";
           description = lib.mdDoc ''
             Group under which Flood runs.
@@ -35,14 +35,14 @@ in
         };
 
         openFirewall = lib.mkOption {
-          type = types.bool;
+          type = lib.types.bool;
           default = true;
           description = lib.mdDoc ''
           '';
         };
 
         port = lib.mkOption {
-          type = types.port;
+          type = lib.types.port;
           default = 3000;
           description = lib.mdDoc ''
             Port on which to listen for HTTP traffic.
@@ -50,7 +50,7 @@ in
         };
 
         extraArgs = lib.mkOption {
-          type = types.str;
+          type = lib.types.str;
           default = "";
           description = lib.mdDoc ''
             Additional arguments to apply to Flood at startup.

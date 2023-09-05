@@ -9,7 +9,7 @@ in {
     seedbox = {
       prowlarr = {
         enable = lib.mkOption {
-          type = types.bool;
+          type = lib.types.bool;
           default = false;
           description = lib.mdDoc ''
             Torrent index manager for content searchers.
@@ -17,7 +17,7 @@ in {
         };
 
         openFirewall = lib.mkOption {
-          type = types.bool;
+          type = lib.types.bool;
           default = true;
           description = lib.mdDoc ''
             Open the firewall to all ports used by Prowlarr.
