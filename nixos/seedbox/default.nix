@@ -21,7 +21,7 @@ in {
 
   options = {
     seedbox = {
-      enable = lib.mkOptionEnable (lib.mdDoc "A torrenting seedbox setup");
+      enable = lib.mkEnableOption (lib.mdDoc "A torrenting seedbox setup");
     };
   };
 
