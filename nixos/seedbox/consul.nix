@@ -75,7 +75,9 @@ in {
 
         extraConfig = {
           server = true;
+          bootstrap = true;
           client_addr = "0.0.0.0";
+          bind_addr = "{{ GetPrivateIP }}";
 
           enable_local_script_checks = true;
         };
