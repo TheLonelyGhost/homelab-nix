@@ -133,8 +133,7 @@ in {
           checks = [
             {
               name = "systemd.service";
-              os_service = "SystemD";
-              service_id = "rtorrent.service";
+              args = [ "systemctl" "is-active" "rtorrent.service" ];
               interval = "10s";
               timeout = "1s";
             }
