@@ -30,7 +30,7 @@ in {
 
         client = lib.mkOption {
           type = lib.types.enum [
-            "aria2"
+            # "aria2"
             "rtorrent"
             # "transmission"
             # "qbittorrent"
@@ -87,12 +87,9 @@ in {
   };
 
   config = lib.mkIf (config.seedbox.enable && cfg.enable) (lib.mkMerge [
-    (lib.mkIf (cfg.client == "aria2") {
-      services.aria2 = {
-        enable = true;
-        openFirewall = cfg.openFirewall;
-      };
-    })
+    # (lib.mkIf (cfg.client == "aria2") {
+    #   services.aria2.enable = true;
+    # })
 
     (lib.mkIf (cfg.client == "rtorrent") {
       services.rtorrent = {
