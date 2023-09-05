@@ -107,18 +107,18 @@ in {
 
         protocol.encryption.set = require,require_RC4,allow_incoming,try_outgoing
 
-        scgi_port = localhost:${builtins.toString cfg.rpcPort}
+        # scgi_port = localhost:${builtins.toString cfg.rpcPort}
         '';
       };
 
       services.flood = {
         enable = true;
         port = cfg.webPort;
-        extraArgs = "--rthost=127.0.0.1 --rtport=${builtins.toString cfg.rpcPort}";
+        # extraArgs = "--rthost=127.0.0.1 --rtport=${builtins.toString cfg.rpcPort}";
 
-        # extraArgs = "--rthost=${config.services.rtorrent.rpcSocket}";
-        # user = "rtorrent";
-        # group = "rtorrent";
+        extraArgs = "--rthost=${config.services.rtorrent.rpcSocket}";
+        user = "rtorrent";
+        group = "rtorrent";
       };
 
       seedbox.consul.services = let
