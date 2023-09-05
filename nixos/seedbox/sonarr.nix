@@ -47,7 +47,7 @@ in {
         checks = [
           {
             name = "HTTP";
-            tcp = "http://localhost:${builtins.toString sonarrPort}/";
+            http = "http://localhost:${builtins.toString sonarrPort}/";
             interval = "10s";
             timeout = "3s";
           }
