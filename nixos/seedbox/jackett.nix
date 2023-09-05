@@ -31,7 +31,7 @@ in {
     services.jackett.openFirewall = cfg.openFirewall;
 
     seedbox.consul.services = let
-      jackett = config.services.jackett.package;
+      jackett = config.services.jackett.package or pkgs.jackett;
       jackettPort = 9117;
     in [
       {

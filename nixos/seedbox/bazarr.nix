@@ -33,7 +33,7 @@ in {
     };
 
     seedbox.consul.services = let
-      bazarr = config.services.bazarr.package;
+      bazarr = config.services.bazarr.package or pkgs.bazarr;
       bazarrPort = 6767;
     in [
       {

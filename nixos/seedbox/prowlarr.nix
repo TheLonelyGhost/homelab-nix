@@ -34,7 +34,7 @@ in {
     };
 
     seedbox.consul.services = let
-      prowlarr = config.services.prowlarr.package;
+      prowlarr = config.services.prowlarr.package or pkgs.prowlarr;
       prowlarrPort = 9696;
     in [
       {

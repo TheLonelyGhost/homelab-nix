@@ -33,7 +33,7 @@ in {
     };
 
     seedbox.consul.services = let
-      sonarr = config.services.sonarr.package;
+      sonarr = config.services.sonarr.package or pkgs.sonarr;
       sonarrPort = 8989;
     in [
       {

@@ -33,7 +33,7 @@ in {
     };
 
     seedbox.consul.services = let
-      radarr = config.services.radarr.package;
+      radarr = config.services.radarr.package or pkgs.radarr;
       radarrPort = 7878;
     in [
       {

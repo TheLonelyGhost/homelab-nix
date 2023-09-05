@@ -33,7 +33,7 @@ in {
     };
 
     seedbox.consul.services = let
-      lidarr = config.services.lidarr.package;
+      lidarr = config.services.lidarr.package or pkgs.lidarr;
       lidarrPort = 8686;
     in [
       {
