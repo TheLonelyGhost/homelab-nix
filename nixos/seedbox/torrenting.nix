@@ -122,8 +122,8 @@ in {
       };
 
       seedbox.consul.services = let
-        rtorrent = config.services.rtorrent.package;
-        flood = config.services.flood.package;
+        rtorrent = config.services.rtorrent.package or pkgs.rtorrent;
+        flood = config.services.flood.package or pkgs.flood;
       in [
         {
           id = rtorrent.name;
