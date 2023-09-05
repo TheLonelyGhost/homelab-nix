@@ -133,7 +133,8 @@ in {
           checks = [
             {
               name = "systemd.service";
-              service = "rtorrent";
+              os_service = "SystemD";
+              service_id = "rtorrent";
               interval = "10s";
               timeout = "1s";
             }
