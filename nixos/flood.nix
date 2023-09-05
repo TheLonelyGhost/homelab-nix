@@ -66,7 +66,7 @@ in
         after = [ "network.target" ];
         description = pkgs.flood.meta.description;
         wantedBy = [ "multi-user.target" ];
-        path = [ cfg.package ];
+        path = [ cfg.package pkgs.mediainfo ];
 
         serviceConfig = {
           ExecStart = "${lib.getExe cfg.package} ${cfg.extraArgs} --port=${builtins.toString cfg.port}";
@@ -80,6 +80,7 @@ in
 
       environment.systemPackages = [
         cfg.package
+        pkgs.mediainfo
       ];
 
       users.users = lib.mkIf (cfg.user == "flood") {
