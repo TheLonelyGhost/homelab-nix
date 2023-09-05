@@ -33,7 +33,7 @@ in {
     };
 
     seedbox.consul.services = let
-      ombi = config.services.ombi.package;
+      ombi = config.services.ombi.package or pkgs.ombi;
       ombiPort = 5000;
     in [
       {
