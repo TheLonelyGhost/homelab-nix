@@ -127,7 +127,7 @@ in {
       in [
         {
           id = rtorrent.name;
-          name = rtorrent.pname;
+          name = rtorrent.pname or "rtorrent";
           port = cfg.rpcPort;
           meta = {
             inherit (rtorrent) version;
@@ -144,7 +144,7 @@ in {
         }
         {
           id = flood.name;
-          name = flood.pname;
+          name = flood.pname or "flood";
           port = cfg.webPort;
           meta = {
             inherit (flood) version;
