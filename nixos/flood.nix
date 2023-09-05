@@ -12,7 +12,7 @@ in
         package = lib.mkOption {
           type = lib.types.package;
           default = pkgs.flood;
-          example = literalExpression "pkgs.flood";
+          example = lib.options.literalExpression "pkgs.flood";
           description = lib.mdDoc ''
             Flood package to use.
           '';
