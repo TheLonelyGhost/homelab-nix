@@ -60,7 +60,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enabled (lib.mkMerge [
+  config = lib.mkIf cfg.enable (lib.mkMerge [
     {
       systemd.services.flood = {
         after = [ "network.target" ];
