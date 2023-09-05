@@ -134,7 +134,7 @@ in {
             {
               name = "systemd.service";
               os_service = "SystemD";
-              service_id = "rtorrent";
+              service_id = "rtorrent.service";
               interval = "10s";
               timeout = "1s";
             }
