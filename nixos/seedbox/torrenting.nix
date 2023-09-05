@@ -106,15 +106,12 @@ in {
         protocol.pex.set = yes
 
         protocol.encryption.set = require,require_RC4,allow_incoming,try_outgoing
-
-        # scgi_port = localhost:${builtins.toString cfg.rpcPort}
         '';
       };
 
       services.flood = {
         enable = true;
         port = cfg.webPort;
-        # extraArgs = "--rthost=127.0.0.1 --rtport=${builtins.toString cfg.rpcPort}";
 
         extraArgs = "--host=0.0.0.0 --auth=none --rtsocket=${config.services.rtorrent.rpcSocket}";
         user = "rtorrent";
@@ -135,8 +132,8 @@ in {
           };
           checks = [
             {
-              name = "RPC";
-              tcp = "localhost:${builtins.toString cfg.rpcPort}";
+              name = "systemd.service";
+              service = "rtorrent";
               interval = "10s";
               timeout = "1s";
             }
