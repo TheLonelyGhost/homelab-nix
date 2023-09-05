@@ -116,7 +116,7 @@ in {
         port = cfg.webPort;
         # extraArgs = "--rthost=127.0.0.1 --rtport=${builtins.toString cfg.rpcPort}";
 
-        extraArgs = "--rthost=${config.services.rtorrent.rpcSocket}";
+        extraArgs = "--rtsocket=${config.services.rtorrent.rpcSocket}";
         user = "rtorrent";
         group = "rtorrent";
       };
