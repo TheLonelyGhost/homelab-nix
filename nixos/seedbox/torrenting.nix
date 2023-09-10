@@ -94,7 +94,7 @@ in {
     (lib.mkIf (cfg.client == "rtorrent") {
       services.rtorrent = {
         enable = true;
-        # package = pkgs.jesec-rtorrent;
+        package = pkgs.jesec-rtorrent;
         inherit (cfg) openFirewall;
 
         inherit (cfg) downloadDir;

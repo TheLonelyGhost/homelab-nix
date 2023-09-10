@@ -45,5 +45,13 @@
       nixosModules.seedbox = import ./nixos/seedbox;
       nixosModules.fabio = import ./nixos/fabio.nix;
       nixosModules.flood = import ./nixos/flood.nix;
+      overlays.default = (final: prev: let
+        pkgs = import nixpkgs {
+          inherit (prev) system;
+        };
+      in {
+        # Allow these packages to come from upstream
+        inherit (pkgs) consul sonarr radarr lidarr prowlarr ombi jackett rtorrent jesec-rtorrent aria2 qbittorrent-nox;
+      });
     };
 }
