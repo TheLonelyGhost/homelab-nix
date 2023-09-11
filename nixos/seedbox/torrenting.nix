@@ -338,10 +338,11 @@ in {
         # cfg.listenPort
         # cfg.listenPortDHT
       ];
-      # networking.firewall.allowedUDPPorts = [
-      #   # cfg.listenPort
-      #   # cfg.listenPortDHT
-      # ];
+      networking.firewall.allowedUDPPorts = [
+        cfg.webPort
+        # cfg.listenPort
+        # cfg.listenPortDHT
+      ];
     })
   ]);
 }
