@@ -84,7 +84,7 @@ let
     session.path.set = (cat, (cfg.session))
     directory.default.set = (cat, (cfg.download))
     log.execute = (cat, (cfg.logs), "execute.log")
-    #log.xmlrpc = (cat, (cfg.logs), "xmlrpc.log")
+    log.xmlrpc = (cat, (cfg.logs), "xmlrpc.log")
     execute.nothrow = sh, -c, (cat, "echo >",\
         (session.path), "rtorrent.pid", " ",(system.pid))
 
