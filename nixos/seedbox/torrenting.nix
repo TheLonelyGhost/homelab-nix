@@ -224,7 +224,7 @@ in {
     # })
 
     (lib.mkIf (cfg.client == "rtorrent") {
-      virtualisation.oci-containers.backend = "docker";
+      # virtualisation.oci-containers.backend = "docker";
       virtualisation.oci-containers.containers.torrent = {
         image = "ghcr.io/hotio/rflood:latest";
         environment = {
@@ -242,6 +242,7 @@ in {
 
         extraOptions = [
           "--cap-add=NET_ADMIN"
+          "--cap-add=SYS_MODULE"
           "--sysctl=net.ipv4.conf.all.src_valid_mark=1"
           "--sysctl=net.ipv6.conf.all.disable_ipv6=0"
         ];
@@ -305,7 +306,7 @@ in {
       seedbox.consul.services = [
         {
           id = "ghcr.io-hotio-rflood-latest";
-          name = "rtorrent (Flood)";
+          name = "rtorrent-flood";
           port = cfg.webPort;
           meta = {
           };
