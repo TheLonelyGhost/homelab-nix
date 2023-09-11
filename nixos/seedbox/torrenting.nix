@@ -266,11 +266,12 @@ in {
           if [ "$NIXOS_ACTION" = "dry-activate" ]; then
             echo 'copy: ${myRtorrentConfig} -> /var/lib/rtorrent/rtorrent.rc'
             echo 'copy: ${cfg.wireguardConfigFile} -> /var/lib/rtorrent/wireguard/wg0.conf'
+            echo 'chown: /var/lib/rtorrent'
           else
             mkdir -p /var/lib/rtorrent /var/lib/rtorrent/wireguard
             cp ${myRtorrentConfig} /var/lib/rtorrent/rtorrent.rc
             cp ${cfg.wireguardConfigFile} /var/lib/rtorrent/wireguard/wg0.conf
-            chown 1000:1000 /var/lib/rtorrent/rtorrent.rc /var/lib/rtorrent/wireguard/wg0.conf
+            chown 1000:1000 -R /var/lib/rtorrent/
           fi
         '';
       };
