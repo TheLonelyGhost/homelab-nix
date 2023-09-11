@@ -341,7 +341,7 @@ in {
         };
 
         extraOptions = [
-          "--device=/dev/net/tun:/dev/net/tun"
+          "--privileged"
           "--cap-add=NET_ADMIN"
           "--cap-add=SYS_MODULE"
           "--sysctl=net.ipv4.conf.all.src_valid_mark=1"
