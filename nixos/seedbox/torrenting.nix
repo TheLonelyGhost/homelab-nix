@@ -224,6 +224,7 @@ in {
     # })
 
     (lib.mkIf (cfg.client == "rtorrent") {
+      virtualisation.oci-containers.backend = "docker";
       virtualisation.oci-containers.containers.torrent = {
         image = "ghcr.io/hotio/rflood:latest";
         environment = {
