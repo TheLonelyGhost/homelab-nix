@@ -4,7 +4,7 @@ let
   cfg = config.seedbox.torrent;
 
   defaultRtorrentConfig = builtins.readFile ../../files/rtorrent.rc;
-  rtorrentConfig = {configDir ? "/config/", downloadsDir ? "/downloads/"}: pkgs.writeText "rtorrent.rc" ''
+  rtorrentConfig = {configDir ? "/config/", downloadDir ? "/downloads/"}: pkgs.writeText "rtorrent.rc" ''
     #############################################################################
     # A minimal rTorrent configuration that provides the basic features
     # you want to have in addition to the built-in defaults.
@@ -16,7 +16,7 @@ let
 
     ## Instance layout (base paths)
     method.insert = cfg.basedir,  private|const|string, (cat,"${configDir}")
-    method.insert = cfg.download, private|const|string, (cat,"${downloadsDir}")
+    method.insert = cfg.download, private|const|string, (cat,"${downloadDir}")
     method.insert = cfg.logs,     private|const|string, (cat,(cfg.basedir),"log/")
     method.insert = cfg.logfile,  private|const|string, (cat,(cfg.logs),"rtorrent-",(system.time),".log")
     method.insert = cfg.session,  private|const|string, (cat,(cfg.basedir),"session/")
@@ -255,13 +255,15 @@ in {
 
         volumes = [
           "/var/lib/rtorrent:/config"
-          "${cfg.downloadDir}:/downloads"
+          "${cfg.downloadDir}:${cfg.downloadDir}"
         ];
       };
 
       # Write to file /var/lib/rtorrent/rtorrent.rc
       system.activationScripts.rtorrentrc = let
-        myRtorrentConfig = rtorrentConfig {};
+        myRtorrentConfig = rtorrentConfig {
+          inherit (cfg) downloadDir;
+        };
       in {
         deps = ["var"];
         supportsDryActivation = true;
