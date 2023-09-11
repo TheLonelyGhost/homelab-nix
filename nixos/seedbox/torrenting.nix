@@ -334,9 +334,10 @@ in {
           UMASK = "002";
           TZ = "Etc/UTC";
           WEBUI_PORTS = "${builtins.toString cfg.webPort}/tcp,${builtins.toString cfg.webPort}/udp";
-          VPN_ADDITIONAL_PORTS = "${builtins.toString cfg.listenPort}/tcp,${builtins.toString cfg.listenPort}/udp,${builtins.toString cfg.listenPortDHT}/tcp,${builtins.toString cfg.listenPortDHT}/udp";
+          # VPN_ADDITIONAL_PORTS = "${builtins.toString cfg.listenPort}/tcp,${builtins.toString cfg.listenPort}/udp,${builtins.toString cfg.listenPortDHT}/tcp,${builtins.toString cfg.listenPortDHT}/udp";
           VPN_ENABLED = "true";
           VPN_CONF = "wg0";
+          PRIVOXY_ENABLED = "false";
           VPN_LAN_NETWORK = "10.0.0.0/16,192.168.0.0/16";
         };
 
