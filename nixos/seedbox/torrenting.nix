@@ -238,6 +238,7 @@ in {
           VPN_CONF = "wg0";
           PRIVOXY_ENABLED = "false";
           FLOOD_AUTH = "false";
+          VPN_LAN_NETWORK = "10.0.0.0/16,192.168.0.0/16";
         };
 
         extraOptions = [
