@@ -302,7 +302,7 @@ in {
 
       seedbox.consul.services = [
         {
-          id = "ghcr.io/hotio/rflood:latest";
+          id = "ghcr.io-hotio-rflood-latest";
           name = "rtorrent (Flood)";
           port = cfg.webPort;
           meta = {
