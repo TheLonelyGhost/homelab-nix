@@ -43,7 +43,7 @@ let
     ## Tracker-less torrent and UDP tracker support
     ## (conservative settings for 'private' trackers, change for 'public')
     ${if (cfg.listenPortDHT > 0) then ''
-    dht.port.set = ${builtings.toString cfg.listenPortDHT}
+    dht.port.set = ${builtins.toString cfg.listenPortDHT}
     dht.mode.set = auto
     protocol.pex.set = yes
     '' else ''
