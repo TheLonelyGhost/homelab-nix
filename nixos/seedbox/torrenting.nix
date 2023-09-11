@@ -241,10 +241,11 @@ in {
         };
 
         extraOptions = [
+          "--privileged"
           "--cap-add=NET_ADMIN"
           "--cap-add=SYS_MODULE"
           "--sysctl=net.ipv4.conf.all.src_valid_mark=1"
-          "--sysctl=net.ipv6.conf.all.disable_ipv6=1"
+          "--sysctl=net.ipv6.conf.all.disable_ipv6=0"
         ];
 
         ports = [
