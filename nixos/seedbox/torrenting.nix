@@ -237,7 +237,7 @@ in {
           VPN_CONF = "wg0";
           PRIVOXY_ENABLED = "false";
           FLOOD_AUTH = "false";
-          VPN_LAN_NETWORK = "10.0.0.0/16,192.168.0.0/16";
+          # VPN_LAN_NETWORK = "10.0.0.0/16,192.168.0.0/16";
         };
 
         extraOptions = [
@@ -249,7 +249,7 @@ in {
         ];
 
         ports = [
-          "${builtins.toString cfg.webPort}:${builtins.toString cfg.webPort}"
+          "0.0.0.0:${builtins.toString cfg.webPort}:${builtins.toString cfg.webPort}"
         ];
 
         volumes = [
