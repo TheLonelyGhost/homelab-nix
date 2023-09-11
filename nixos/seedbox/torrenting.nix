@@ -167,7 +167,7 @@ in {
             # "aria2"
             "rtorrent"
             # "transmission"
-            # "qbittorrent"
+            "qbittorrent"
           ];
           default = "rtorrent";
           description = lib.mdDoc ''
@@ -325,10 +325,74 @@ in {
       ];
     })
 
-    # (lib.mkIf (cfg.client == "qbittorrent") {
-    #   services.qbittorrent.enable = true;
-    #   services.qbittorrent.openFirewall = cfg.openFirewall;
-    # })
+    (lib.mkIf (cfg.client == "qbittorrent") {
+      virtualisation.oci-containers.containers.torrent = {
+        image = "ghcr.io/hotio/qbittorrent:latest";
+        environment = {
+          PUID = "1000";
+          PGID = "1000";
+          UMASK = "002";
+          TZ = "Etc/UTC";
+          WEBUI_PORTS = "${builtins.toString cfg.webPort}/tcp,${builtins.toString cfg.webPort}/udp";
+          VPN_ADDITIONAL_PORTS = "${builtins.toString cfg.listenPort}/tcp,${builtins.toString cfg.listenPort}/udp,${builtins.toString cfg.listenPortDHT}/tcp,${builtins.toString cfg.listenPortDHT}/udp";
+          VPN_ENABLED = "true";
+          VPN_CONF = "wg0";
+          VPN_LAN_NETWORK = "10.0.0.0/16,192.168.0.0/16";
+        };
+
+        extraOptions = [
+          "--device=/dev/net/tun:/dev/net/tun"
+          "--cap-add=NET_ADMIN"
+          "--cap-add=SYS_MODULE"
+          "--sysctl=net.ipv4.conf.all.src_valid_mark=1"
+          "--sysctl=net.ipv6.conf.all.disable_ipv6=0"
+        ];
+
+        ports = [
+          "0.0.0.0:${builtins.toString cfg.webPort}:${builtins.toString cfg.webPort}"
+        ];
+
+        volumes = [
+          "/var/lib/qbittorrent:/config"
+          "${cfg.downloadDir}:${cfg.downloadDir}"
+        ];
+      };
+
+      system.activationScripts.qbittorrent = let
+        things = "";
+      in {
+        deps = ["var"];
+        supportsDryActivation = true;
+        text = ''
+          if [ "$NIXOS_ACTION" = "dry-activate" ]; then
+            echo 'copy: ${cfg.wireguardConfigFile} -> /var/lib/qbittorrent/wireguard/wg0.conf'
+            echo 'chown: /var/lib/qbittorrent'
+          else
+            mkdir -p /var/lib/qbittorrent/wireguard
+            cp ${cfg.wireguardConfigFile} /var/lib/qbittorrent/wireguard/wg0.conf
+            chown 1000:1000 -R /var/lib/qbittorrent/
+          fi
+        '';
+      };
+
+      seedbox.consul.services = [
+        {
+          id = "ghcr.io-hotio-qbittorrent-latest";
+          name = "qbittorrent";
+          port = cfg.webPort;
+          meta = {
+          };
+          checks = [
+            {
+              name = "HTTP";
+              http = "http://localhost:${builtins.toString cfg.webPort}/";
+              interval = "10s";
+              timeout = "3s";
+            }
+          ];
+        }
+      ];
+    })
     # (lib.mkIf (cfg.client == "transmission") {
     #   services.transmission.enable = true;
     #   services.transmission.openFirewall = cfg.openFirewall;
